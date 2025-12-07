@@ -1,7 +1,7 @@
 import type { GrammarSuggestion } from "@/types";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/correct";
+const API_URL = "https://grammarlite-server.onrender.com/correct";
 
 export async function checkGrammar(
   text: string,
