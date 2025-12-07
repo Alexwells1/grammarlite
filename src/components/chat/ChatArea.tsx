@@ -12,19 +12,22 @@ interface Message {
 interface ChatAreaProps {
   messages: Message[];
   isTyping?: boolean;
-  mode: "basic" | "deep"; 
+  mode: "basic" | "deep";
 }
 
 const ChatArea = ({ messages, isTyping = false, mode }: ChatAreaProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Auto-scroll to bottom on new messages or typing
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages, isTyping]);
 
-  // Dynamic placeholder based on mode
   const placeholderTitle =
     mode === "basic"
       ? "Type a sentence to quickly correct its grammar..."
@@ -37,9 +40,9 @@ const ChatArea = ({ messages, isTyping = false, mode }: ChatAreaProps) => {
   return (
     <div
       ref={scrollRef}
-      className="flex-1 overflow-y-auto scrollbar-thin px-4 py-6"
+      className="flex-1 overflow-y-auto no-scrollbar px-3 sm:px-4 py-4 sm:py-6"
     >
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-full sm:max-w-3xl mx-auto space-y-4">
         {messages.map((message, index) => (
           <MessageBubble
             key={message.id}
@@ -53,11 +56,11 @@ const ChatArea = ({ messages, isTyping = false, mode }: ChatAreaProps) => {
         {isTyping && <TypingIndicator />}
 
         {messages.length === 0 && !isTyping && (
-          <div className="flex flex-col items-center justify-center h-full min-h-[300px] text-center">
-            <h2 className="text-xl font-semibold text-foreground mb-2">
+          <div className="flex flex-col items-center justify-center h-full min-h-[200px] sm:min-h-[300px] text-center px-2">
+            <h2 className="text-base sm:text-xl font-semibold text-foreground mb-2">
               {placeholderTitle}
             </h2>
-            <p className="text-sm text-muted-foreground max-w-md">
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-[90%] sm:max-w-md">
               {placeholderSubtitle}
             </p>
           </div>

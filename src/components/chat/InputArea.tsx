@@ -38,26 +38,26 @@ const InputArea = ({
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${Math.min(
         textareaRef.current.scrollHeight,
-        200
+        150
       )}px`;
     }
   }, [message]);
 
   return (
-    <div className="border-t border-border bg-card/70 backdrop-blur-md px-4 py-3 rounded-t-xl flex items-center gap-3 shadow-inner">
-      {/* Mode button on bottom-left */}
-      <div className="relative">
+    <div className="flex flex-row items-center gap-2 sm:gap-3 p-3 border-t border-border bg-card/70 backdrop-blur-md rounded-t-xl shadow-inner w-full">
+      {/* Mode button */}
+      <div className="relative flex-shrink-0">
         <Button
           variant="outline"
           size="icon"
           onClick={() => setModeMenuOpen((prev) => !prev)}
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
         </Button>
         {modeMenuOpen && (
-          <div className="absolute bottom-10 left-0 bg-card border border-border rounded-md shadow-lg z-10 w-32">
+          <div className="absolute bottom-full mb-2 left-0 bg-card border border-border rounded-md shadow-lg z-10 min-w-[7rem] sm:min-w-[10rem]">
             <button
-              className={`w-full px-3 py-2 text-left ${
+              className={`w-full px-3 py-2 text-left text-sm sm:text-base ${
                 mode === "basic" ? "bg-primary/20" : ""
               }`}
               onClick={() => {
@@ -68,7 +68,7 @@ const InputArea = ({
               Basic
             </button>
             <button
-              className={`w-full px-3 py-2 text-left ${
+              className={`w-full px-3 py-2 text-left text-sm sm:text-base ${
                 mode === "deep" ? "bg-primary/20" : ""
               }`}
               onClick={() => {
@@ -83,30 +83,32 @@ const InputArea = ({
       </div>
 
       {/* Textarea */}
-      <textarea
-        ref={textareaRef}
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={
-          mode === "basic"
-            ? "Type a sentence for quick grammar correction..."
-            : "Type a sentence for multiple grammar suggestions..."
-        }
-        className="flex-1 resize-none rounded-xl p-3 pr-12 outline-none border border-border bg-input text-foreground focus:ring-2 focus:ring-ring placeholder:text-muted-foreground transition-all"
-        rows={1}
-      />
+      <div className="flex-1 relative flex items-end">
+        <textarea
+          ref={textareaRef}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={
+            mode === "basic"
+              ? "Type a sentence for correction..."
+              : "Type a sentence for suggestions..."
+          }
+          className="flex-1 no-scrollbar resize-none rounded-xl p-3 pr-12 sm:pr-14 outline-none border border-border bg-input text-foreground focus:ring-2 focus:ring-ring placeholder:text-muted-foreground min-h-[2.5rem] sm:min-h-[3rem] max-h-[150px] overflow-y-auto transition-all placeholder:text-sm sm:placeholder:text-base"
+          rows={1}
+        />
 
-      {/* Send button on bottom-right */}
-      <Button
-        variant="ghost"
-        size="icon"
-        disabled={disabled || !message.trim()}
-        onClick={handleSend}
-        className="absolute right-4 bottom-4"
-      >
-        <ArrowUp className="w-5 h-5 rotate-45" />
-      </Button>
+        {/* Send button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          disabled={disabled || !message.trim()}
+          onClick={handleSend}
+          className="absolute right-2 bottom-2 sm:right-3 sm:bottom-3"
+        >
+          <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 rotate-45" />
+        </Button>
+      </div>
     </div>
   );
 };
