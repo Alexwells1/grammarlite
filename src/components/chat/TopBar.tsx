@@ -79,11 +79,42 @@ const TopBar = ({ mode, onModeChange }: TopBarProps) => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-sm w-full p-6 bg-card rounded-lg shadow-lg">
           <DialogHeader>
-            <DialogTitle>App Info / Settings</DialogTitle>
-            <DialogDescription className="mt-2 text-sm text-muted-foreground">
-              You can place settings or information here.
+            <DialogTitle>About GrammarLite</DialogTitle>
+            <DialogDescription className="mt-2 text-sm text-muted-foreground space-y-4 text-left">
+              <p>
+                <strong>GrammarLite</strong> is an AI-powered grammar correction
+                system built as a CSC 433 (Natural Language Processing) project.
+                It analyzes user input, detects grammatical issues, and provides
+                corrections with clear explanations.
+              </p>
+
+              <p>
+                This application uses a modern NLP pipeline with a Node.js
+                backend and a React frontend, powered by the Groq LLaMA 3.3 70B
+                model for high-accuracy grammar analysis.
+              </p>
+
+              <div>
+                <p className="font-medium mb-1">Core Features:</p>
+                <ul className="list-disc list-inside space-y-1 pl-1">
+                  <li>Grammar correction with detailed explanations</li>
+                  <li>Multiple suggestions in Deep Mode</li>
+                  <li>Interactive chat-style learning interface</li>
+                  <li>Real-time NLP processing via Groq API</li>
+                </ul>
+              </div>
+
+              <div className="pt-1">
+                <p>
+                  <span className="font-medium">Project Author:</span> Mikun{" "}
+                  <br />
+                  <span className="font-medium">Course:</span> CSC 433 – Natural
+                  Language Processing
+                </p>
+              </div>
             </DialogDescription>
           </DialogHeader>
+
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Close
