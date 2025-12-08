@@ -67,7 +67,7 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex flex-col min-h-dvh bg-background">
       {/* Top Bar */}
       <TopBar mode={mode} onModeChange={setMode} />
 
